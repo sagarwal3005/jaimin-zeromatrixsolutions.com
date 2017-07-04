@@ -1,0 +1,114 @@
+.header_content{
+    border-bottom:1px dotted cadetblue;
+    padding-bottom:5px;
+}
+.title_part{
+    float:left;
+    width:25%;
+    text-align:center;
+    font-family: fantasy;
+}
+.title_part_second{
+    float:left;
+    width:25%;
+    text-align:center;
+    font-family: fantasy;
+}
+.title_part_third{
+    float:left;
+    width:25%;   
+    font-family: fantasy;
+}
+.fourth_part{
+    float:left;
+    width:25%;   
+    font-family: fantasy;    
+    text-align: center;
+}
+.fourth_part p{     
+    color:brown;         
+    line-height: 60px;
+}
+
+.title_part h1{
+    font-size:20px;
+    margin:0;    
+    color:#34439a;
+}
+.title_part_second h1{
+    font-size:20px;
+    margin:0;   
+    color:brown;   
+}
+.title_part p{
+    margin:0;    
+    letter-spacing:3px;
+    margin-bottom:3px;
+    color:cadetblue;
+}
+.title_part a{    
+    font-weight: 600;
+}
+
+.title_part_third h2{
+    font-size:13px;
+    margin:0;    
+    color:#34439a;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+
+/*detail_content*/
+
+.detail_content .col_9{
+    float:left;
+    width:80%;
+}
+.detail_content .col_4{
+    float:left;
+    width:20%;
+}
+.detail_content .col_9 .box_detail{
+  width:100%;
+  margin-top: 10px;
+}
+.detail_content .col_9 .box_detail .box_detail_value{   
+    float:left;
+    width:15%;
+    border-radius: 10px;   
+    text-align: center;
+    padding:0;
+    margin:0 5px;
+    
+}
+.detail_content .col_9 .box_detail .col_6{
+    width:48%;
+    margin:0 10px;
+}
+.box_detail_value h2{
+    text-transform: uppercase;
+    font-size: 9px;
+    padding: 5px;
+    background: #34439a;
+    color: #fff;
+    margin: 0;
+    font-family: fantasy;
+     border-top-right-radius: 8px;
+     border-top-left-radius: 8px;
+}
+.box_detail_value .value_shown{
+    height:30px;
+    font-size: 10px;    
+    padding: 0 2px;
+    text-transform: capitalize;
+}
+
+.box_detail_value p{
+     font-family: fantasy;
+}
+.box_detail .col_6 p{
+    margin:8px 0;
+}
