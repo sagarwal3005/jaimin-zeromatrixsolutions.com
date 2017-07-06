@@ -83,10 +83,10 @@
 		              <!-- Menu Footer-->
 		              <li class="user-footer">
 		                <div class="pull-left">
-		                  <a href="{{ asset('admin') }}/change_password" class="btn btn-default btn-flat">Change Password</a>
+		                  <a href="/apanel/changePassword" class="btn btn-default btn-flat">Change Password</a>
 		                </div>
 		                <div class="pull-right">
-		                  <a href="{{ asset('admin') }}/logout" class="btn btn-default btn-flat">Sign out</a>
+		                  <a href="/apanel/logout" class="btn btn-default btn-flat">Sign out</a>
 		                </div>
 		              </li>
 		            </ul>
@@ -140,6 +140,8 @@
             <li ><a href="/apanel/society/add"><i class="fa fa-circle-o"></i> Add Society</a></li>
             <li><a href="/apanel/society/index"><i class="fa fa-circle-o"></i> List Society</a></li>
           </ul>
+
+          <li ><a href="/apanel/user/index"><i class="fa fa-user"></i>List User</a></li>
         </li>
        
         

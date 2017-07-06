@@ -31,6 +31,10 @@
   <div class="login-logo">
     <b>SocialSoc Admin Panel </b>
   </div>
+
+   @if(Session::has('e'))
+      <div class="alert alert-error" style="width:auto;float:center"><span class="glyphicon glyphicon-ok"></span><em> {!! session('e') !!}</em></div>
+  @endif
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>

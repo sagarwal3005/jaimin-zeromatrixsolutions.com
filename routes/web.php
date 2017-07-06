@@ -57,5 +57,10 @@ Route::group(['prefix' => 'apanel','namespace'=>'apanel' ,'middleware' => ['Chec
 	Route::post('society/create/{id}', ['as' => 'category/create',  'uses' => 'SocietyController@create']);
 	Route::get('society/getStates', 'SocietyController@getStates');
 	Route::get('society/getCities', 'SocietyController@getCities');
+	Route::get('user/index', 'UserController@index');
+	Route::post('user/changeStatus', 'UserController@changeStatus');
+	Route::get('logout', 'UserController@logout');
+	Route::get('/changePassword', 'UserController@changePassword');
+	Route::post('/updatePassword', 'UserController@updatePassword');
 	// Society Routes End
 });

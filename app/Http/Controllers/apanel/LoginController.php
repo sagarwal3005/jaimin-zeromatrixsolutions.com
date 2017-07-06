@@ -13,7 +13,7 @@ class LoginController extends Controller
     }
 
     function index(){
-    	//\Session::forget('admin_id');
+    	
     	return view('apanel/index');
     }
 
@@ -26,6 +26,7 @@ class LoginController extends Controller
     		session(['admin_id' => $t_user[0]['id']]);
     		return redirect('apanel/');
     	}else{
+            \Session::flash('e','Wrong Combination of Username and Password');
     		return redirect('apanel/login');
     	}
     }

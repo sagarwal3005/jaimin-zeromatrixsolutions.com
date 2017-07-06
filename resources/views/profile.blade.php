@@ -1,24 +1,12 @@
-<!-- <div class="all_users">
 
-	@if(isset($t_near_society_members) && !empty($t_near_society_members))
-		@foreach($t_near_society_members as $t_near_society_member)
-		<div class="single_user" id="{{$t_near_society_member['id']}}">
-			<div>{{ $t_near_society_member['name'] }}</div>
-			<div><input type="button" value="View Profile" class="view_profile">  </div>
-		</div>
-		@endforeach
-	@endif
-
-</div>
- -->
 
 @extends('layouts.authuser')
 
 @section('content')
 <div class="container-fluid">
 
-	<div class="page-content">
-		<div class="profile-content">
+	<div class="page-content clearfix">
+		<div class="profile-content clearfix">
 			<div class="user-detail clearfix">
 				<a class="user-image">
 					<!-- for upload image comment code --> 
@@ -49,7 +37,7 @@
 						
 						<li class="single_user" id="{{$t_near_society_member['id']}}">
 							<div class="member-img">
-							<img height="40" src="{{(!empty($t_near_society_member['profile_image'])) ? asset('images/profile/'.$t_near_society_member['profile_image']) : asset('images/default-user.png') }}">	
+							<img  src="{{(!empty($t_near_society_member['profile_image'])) ? asset('images/profile/'.$t_near_society_member['profile_image']) : asset('images/default-user.png') }}">	
 							</div>
 							<div class="member-details clearfix">
 								<div class="detail-content">
@@ -63,6 +51,9 @@
 						</li>
 
 						@endforeach
+
+					@else
+					  No Menber Found!
 					@endif
 						<!-- <li>
 							<div class="member-img">
@@ -84,20 +75,17 @@
 			<div class="society-members-content">
 				<h4 class="list-title">Recent Activities</h4>
 				<div class="list-content activity-list">
-					<ul>
+					<ul>					
 
-						
-
-						@if(isset($t_notifications) && !empty($t_notifications))
-						@foreach($t_notifications as $t_notification)
-
-						
+					@if(isset($t_notifications) && !empty($t_notifications))
+						@foreach($t_notifications as $t_notification)						
 						<li>
 						  <p>{{$t_notification['notification']}}</p>
 						  <span class="grey-text">{{ date('d-m-Y H:i:s',strtotime($t_notification['created_at'])) }}</span>
 						</li>
-
 						@endforeach
+					@else
+						No Notification Found!
 					@endif
 						<!-- <li>
 							<p><span class="name">Bijal Shah</span>has Just Posted A photo</p>
@@ -131,8 +119,8 @@
   $(document).on('click','.view_profile',function(){
 
   	
-  	var self = this;
-       $.ajax({
+  		var self = this;
+        $.ajax({
               url:'/checkRequest',
               type:'post',
               data:{receiver_user_id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
@@ -146,7 +134,7 @@
                   }else  if(res.status==2){                      
                       alert('Your request for view profile has rejected by user ');
                   }else  if(res.status==3){                      
-                      if(confirm('Are You sure Want to send request for view Profile')){
+                      if(confirm('Are You sure to Want to send request for view Profile')){
                       		sendRequest(self);
                       }
                   }
@@ -154,27 +142,27 @@
               error:function(){
                    alert('Something Went Wrong');
               }
-          })        
+        })        
   })
 
   function sendRequest(self){
-		 $.ajax({
-	          url:'/sendRequest',
-	          type:'post',
-	          data:{receiver_user_id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
-	          dataType:'JSON',
-	          async:false,
-	          success:function(res){
-	              if(res.status==0){                      
-	                  alert('Please Try Again ');
-	              }else if(res.status==1){                      
-	                  alert('Request send successfully');
-	              }
-	          },
-	          error:function(){
-	               alert('Something Went Wrong');
-	          }
-	      })   
+	 $.ajax({
+          url:'/sendRequest',
+          type:'post',
+          data:{receiver_user_id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
+          dataType:'JSON',
+          async:false,
+          success:function(res){
+              if(res.status==0){                      
+                  alert('Please Try Again ');
+              }else if(res.status==1){                      
+                  alert('Request send successfully');
+              }
+          },
+          error:function(){
+               alert('Something Went Wrong');
+          }
+      })   
   }
 
   $(document).on('change','#profile_image',function(){

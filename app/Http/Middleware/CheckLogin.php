@@ -16,7 +16,6 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {   
-        //echo Session::get('admin_id');exit;
         if(!empty(Session::get('admin_id'))){
             if(app()->router->getCurrentRoute()->uri=='apanel/login'){
                 return redirect('apanel/');

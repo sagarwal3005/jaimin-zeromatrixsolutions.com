@@ -29,12 +29,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         
-        $t_categories = Category::where([['delete_status','!=',1]])->get()->toArray();
+        $t_user = Auth::User()->toArray();
+        $o_category = new Category;
+        $t_categories = $o_category -> getUserCategories(Auth::User()->id);
         $t_societies = Society::all()->toArray();
-        return view('home',compact(['t_categories'],['t_societies']));
+        return view('home',compact(['t_categories'],['t_societies'],['t_user']));
     }
 
     function saveUserDetails(Request $o_request){
@@ -97,7 +98,8 @@ class HomeController extends Controller
             if($o_user_request->save()){
                 $s_notification = Auth::User()->name .' has sent you Request';
                 $i_receiver_user_id=$o_request->receiver_user_id;
-                $this -> saveNotifications($i_receiver_user_id,$s_notification);
+                $i_user_id = Auth::User()->id;
+                $this -> saveNotifications($i_receiver_user_id,$s_notification,$i_user_id);
                 
                  return json_encode(array('status'=>1)); // send request
             }          
@@ -107,8 +109,9 @@ class HomeController extends Controller
 
     }
 
-    private function saveNotifications($i_receiver_user_id,$s_notification){
+    private function saveNotifications($i_receiver_user_id,$s_notification,$i_user_id){
          $o_user_notification = new User_notification;
+         $o_user_notification->user_id=$i_user_id;
          $o_user_notification->receiver_user_id=$i_receiver_user_id;
          $o_user_notification->ip_address= $_SERVER['REMOTE_ADDR'];
          $o_user_notification->notification = $s_notification;
@@ -135,9 +138,9 @@ class HomeController extends Controller
                 }else if($o_request->status==2){
                     $s_notification = Auth::User()->name .' has rejected your Request';
                 }
-                
+                $i_user_id = Auth::User()->id;
                 $i_receiver_user_id=$o_request->receiver_user_id;
-                $this -> saveNotifications($i_receiver_user_id,$s_notification);
+                $this -> saveNotifications($i_receiver_user_id,$s_notification,$i_user_id);
 
                 return json_encode(array('status'=>1)); 
             } 

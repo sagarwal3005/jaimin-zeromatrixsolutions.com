@@ -2,12 +2,14 @@
 
 @section('content')
 
+
 	<div class="container-fluid no-padding">
 		<div class="row full-width-row">
 		<div class="col-md-2 profile-sidebar">
 		</div>
 		<div class="col-md-10 page-profile">
 		<div class="page-title">
+
 			<h2>Hello <span class="user_name">{{ Auth::user()->name }}</span>, Let's get you start socializing! </h2>
 		</div><!-- /.page-title -->
 		
@@ -18,16 +20,16 @@
 					 <ol class="fs-fields">
 						<li>
 							<label class="fs-field-label fs-anim-upper" for="q1">Would you like to tell us something about you?</label>
-							<textarea  class="fs-anim-lower"  name="user_description"  id="q4" name="q4" placeholder=""></textarea>
+							<textarea  class="fs-anim-lower"  name="user_description"  id="q4" name="q4" placeholder="" >{{$t_user['user_description']}}</textarea>
 						</li>
 						<li>
 							<label class="fs-field-label fs-anim-upper" for="q1">Tell us where you live</label>
 							<div class="wrap">
-								<select class="cs-select cs-skin-underline fs-anim-lower" name="society_id" required>
-									<option value="" disabled selected>Choose your apartment</option>
+								<select class="cs-select cs-skin-underline fs-anim-lower" name="society_id" required id="society_select">
+									<option value="" disabled >Choose your apartment</option>
 									@if(!empty($t_societies))
 										@foreach($t_societies as $t_society)
-											<option value="{{$t_society['id']}}">{{$t_society['name']}}</option>
+											<option {{($t_user['society_id'] == $t_society['id'] ? "selected" : "")}} value="{{$t_society['id']}}">{{$t_society['name']}}</option>
 										@endforeach
 
 									@endif
@@ -47,7 +49,7 @@
 								
 								@if(!empty($t_categories))
 									@foreach($t_categories as $t_category)
-										<span><input id="{{$t_category['id']}}" name="category_ids[]" type="checkbox" value="{{$t_category['id']}}" style="opacity:1"/><label for="{{$t_category['id']}}" class="radio-social"><span><img src="{{URL::to('/images/category').'/'.$t_category['category_image']}}" alt=""></span>{{$t_category['title']}}</label></span>
+										<span><input id="{{$t_category['id']}}" name="category_ids[]" type="checkbox" value="{{$t_category['id']}}" {{(!empty($t_category['user_id']) ? "checked" : "")}} style="opacity:1"/><label for="{{$t_category['id']}}" class="radio-social"><span><img src="{{URL::to('/images/category').'/'.$t_category['category_image']}}" alt=""></span>{{$t_category['title']}}</label></span>
 									@endforeach
 								@endif
 								<!-- <span><input id="q3c" name="q3" type="checkbox" value="social"/><label for="q3c" class="radio-social"><span><img src="education.png" alt=""></span>Books</label></span>
@@ -83,4 +85,16 @@
 		</div>
 
 <div class="clear"></div>
+
+<script src="{{ asset('admin') }}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+<script type="text/javascript">
+
+	if($('#society_select').val()){
+	    $('#society_select').change();
+	}
+		
+
+</script>
 @endsection
+
