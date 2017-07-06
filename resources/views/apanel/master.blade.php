@@ -4,7 +4,8 @@
 
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SocialSoc</title>
+
+ <title>@yield('title')</title> 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -30,6 +31,10 @@
   <!-- Daterange picker -->
   <!-- bootstrap wysihtml5 - text editor -->
    <link rel="stylesheet" href="{{ asset('admin') }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<!-- jQuery 2.2.3 -->
+<script src="{{ asset('admin') }}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="{{ asset('admin') }}/plugins/jQueryUI/jquery-ui.min.js"></script>
+
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
 		<div class="wrapper">
@@ -112,18 +117,30 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-        <!-- <li class="active treeview">
+        <li class="treeview">
           <a href="#">
-           <i class="fa fa-building" aria-hidden="true"></i><span>Agency</span>
+           <i class="fa fa-building" aria-hidden="true"></i><span>Category</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li ><a href="{{ asset('admin') }}/agency/add.php"><i class="fa fa-circle-o"></i> Add Agency</a></li>
-            <li><a href="{{ asset('admin') }}/agency/index.php"><i class="fa fa-circle-o"></i> List Agency</a></li>
+            <li ><a href="/apanel/category/add"><i class="fa fa-circle-o"></i> Add Category</a></li>
+            <li><a href="/apanel/category/index"><i class="fa fa-circle-o"></i> List Category</a></li>
           </ul>
-        </li> -->
+        </li>
+        <li class="treeview">
+          <a href="#">
+           <i class="fa fa-building" aria-hidden="true"></i><span>Society</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li ><a href="/apanel/society/add"><i class="fa fa-circle-o"></i> Add Society</a></li>
+            <li><a href="/apanel/society/index"><i class="fa fa-circle-o"></i> List Society</a></li>
+          </ul>
+        </li>
        
         
       </ul>
@@ -141,10 +158,7 @@
         </div>
     </body>
 
-
-    <!-- jQuery 2.2.3 -->
-<script src="{{ asset('admin') }}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="{{ asset('admin') }}/plugins/jQueryUI/jquery-ui.min.js"></script>
+    
 <!-- jQuery UI 1.11.4 -->
 <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
  --><!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -172,7 +186,7 @@
 <!-- <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
  --><!-- Bootstrap WYSIHTML5 -->
 <script src="{{ asset('admin') }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
- --><!-- Slimscroll -->
+ <!-- Slimscroll -->
 <script src="{{ asset('admin') }}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="{{ asset('admin') }}/plugins/fastclick/fastclick.js"></script>
@@ -182,4 +196,7 @@
 <!-- <script src="/dist/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin') }}/dist/js/demo.js"></script>
+
+
+@yield('footer')
 </html>

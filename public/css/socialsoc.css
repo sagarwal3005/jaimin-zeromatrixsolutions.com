@@ -8464,4 +8464,165 @@ margin-right: 10px;
       height: auto;
       margin: 5px 20px 0 0;
       width: 100px; }
+/*added by nidhi bhatt*/
+.profile-content {
+  margin-top:60px;
+  border:4px solid #C44D58;
+  padding: 30px;
+  width: 100%;
+  float: left;
+}
+.profile-content .user-detail .user-image {
+  max-width: 120px;
+  max-height: 120px;
+  border:2px solid #333;
+  border-radius: 50%;
+  float: left;
+  position: relative;
+  cursor: pointer;
+}
+.profile-content .user-detail .user-description {
+  padding-left: 160px; 
+}
+.profile-content .user-detail .user-image .upload-overlay,.profile-content .user-detail .user-image .edit-overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  line-height: 120px;
+  text-align: center;
+}
+.profile-content .user-detail .user-image .upload-overlay i,.profile-content .user-detail .user-image .edit-overlay i {
+  font-size: 28px;
+  color: #fff;
+}
+.profile-content .user-detail .user-image:hover  .upload-overlay,.profile-content .user-detail .user-image:hover  .edit-overlay {
+  opacity: 1;
+}
+.profile-content .user-detail .user-image img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+.page-content {
+  position: relative;
+  top: 100px;
+  min-height: 140vh;
+}
+.society-members-content {
+  width: 50%;
+  float: left;
+  margin-top: 50px;
+  padding-right: 20px;
+}
+.list-content {
+  border:1px solid #ddd;
+  padding: 20px;
+}
+.list-content li {
+  list-style: none;
+}
+.list-content ul {
+  padding-left: 0px;
+}
+.list-content li .member-img {
+  max-width: 90px;
+  max-height: 90px;
+  border:1px solid transparent;
+  border-radius: 50%;
+  float: left;
+}
+.list-content li .member-img  img {
+  border-radius: 50%;
+}
+.list-content li .member-details .detail-content h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.list-content li .member-details .detail-content p{
+  font-size: 14px;
+}
+.list-content li .member-details {
+  padding-left: 110px;
+} 
+.list-content li .member-details .detail-content {
+  width: 50%;
+  float: left;
 
+}
+.list-content li .member-details .button-content {
+  width: 50%;
+  float: left;
+  text-align: right;
+}
+.list-content li .member-details .button-content .view-profile-btn {
+  padding:10px 12px;
+  background: #C44D58;
+  color: #fff;
+  box-shadow: none;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.list-content li .member-details .button-content .view-profile-btn:hover {
+ opacity: 0.9;
+}
+.list-content.activity-list .name{
+  color:#3333FF;
+  margin-right: 10px;
+}
+.list-content.activity-list  {
+  padding:0px;
+}
+.list-content.activity-list li {
+  padding:10px;
+  border-bottom:1px solid #ddd;
+}
+.list-content.activity-list li:nth-child(odd) {
+  background: #efefef;
+}
+.list-content.activity-list li p {
+  margin-bottom: 0px;
+  color: #000;
+}
+.list-content.activity-list ul {
+  margin-bottom: 0px;
+}
+.list-content li .member-img img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.list-title {
+  font-size: 18px;
+  border-bottom: 2px dashed #333;
+  padding-bottom: 5px;
+}
+.profile-content .user-detail .name {
+  font-size: 20px;
+  color: #000;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+}
+.profile-content .user-detail .user-content {
+  margin-bottom: 10px;
+}
+.profile-content .user-detail .user-content i {
+  margin-right: 10px;
+  color: #C44D58;
+  font-size: 16px;
+}
+.profile-content .user-detail .user-content i.fa-phone,.profile-content .user-detail .user-content i.fa-unlock-alt {
+  font-size: 18px;
+}
+.grey-text {
+  color: #444;
+  font-size: 12px;
+}

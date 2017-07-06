@@ -1,5 +1,5 @@
 @extends('apanel.master')
-@section('title', 'Page Title')
+@section('title', 'Dashboard')
 @section('content')
 
   <section class="content-header">

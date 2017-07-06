@@ -5,7 +5,6 @@ namespace SocialSoc\Http\Controllers\apanel;
 use Illuminate\Http\Request;
 use SocialSoc\Http\Controllers\Controller;
 use SocialSoc\models\Admin;
-use Hash;
 
 class LoginController extends Controller
 {
