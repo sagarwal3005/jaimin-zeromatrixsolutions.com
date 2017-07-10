@@ -33,6 +33,7 @@
         ]) !!};
     </script>
 	
+	
 </head>
 <body class="@if (Route::currentRouteName()) page @endif header-size-fixed sticky-header-type-white header-type-minimal-transparent">
 
@@ -41,7 +42,7 @@
 	
 		
 </div>
-        	<div class="page-wrapper">
+  <div class="page-wrapper">
 	<div class="header-wrapper">
 		<div class="header">		
 			<div class="header-inner">
@@ -53,6 +54,11 @@
 								<strong><span>SocialSoc</span></strong>
 							</a>
 						</div><!-- /.header-logo -->
+						@if(isset(Auth::user()->id) && !empty(Auth::user()->id))
+							<ul class="custom_menu">
+								<li ><a href="{{ route('profile') }}"> Profile </a></li>
+							</ul>
+						@endif
 
 						<div class="header-toggle sidenav-trigger">
 						</div><!-- /.header-toggle -->
@@ -68,6 +74,12 @@
 									</a>
 
 									<ul class="sub-menu" role="menu">
+
+									<li>
+										<a href="{{ route('editProfile') }}">
+											Edit Profile
+										</a>
+									</li>
 										<li>
 											<a href="{{ route('logout') }}"
 												onclick="event.preventDefault();

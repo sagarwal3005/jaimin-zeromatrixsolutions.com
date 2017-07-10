@@ -8726,3 +8726,32 @@ margin-right: 10px;
      margin-top: 25px;
    }
 }
+
+/*// =====================================================*/
+
+.custom_menu {
+    float: left;
+    margin: 0 !important;
+    padding: 0px;
+    height: 50px;
+}
+.custom_menu li a{
+  color:white;
+  font-size:18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+.custom_menu li {
+  list-style: none;
+  line-height: 50px;
+  float: left;
+  margin-right: 10px;
+}
+
+.view_profile_btn{
+    background-color:yellow !important;
+    color:black !important;
+  }.request_sent_btn{
+    background-color:green !important;
+  }

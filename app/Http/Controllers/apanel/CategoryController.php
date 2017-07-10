@@ -17,7 +17,6 @@ class CategoryController extends Controller
     	if(empty($t_category_data)){
     		return back();
     	}
-
     	return view('apanel/category/add',['t_category'=>$t_category_data]);
     }
 
@@ -37,6 +36,7 @@ class CategoryController extends Controller
     	}else{
     		$o_category = new Category;
     	}
+
     	$file = '';
     	if ($o_request->file('category_image') != '') {
             $file = $this->uploadImage($o_request);
@@ -47,7 +47,12 @@ class CategoryController extends Controller
         $o_category->description = $o_request->description;
         $o_category->ip_address = $_SERVER['REMOTE_ADDR'];
         $o_category->is_active = 1;
-        $o_category->save();
+        if($o_category->save()){
+            \Session::flash('s','Category Saved Successfully');
+        }else{
+            \Session::flash('e','Category Not Saved');
+        }      
+        
         return redirect('apanel/category/index');
     }
 

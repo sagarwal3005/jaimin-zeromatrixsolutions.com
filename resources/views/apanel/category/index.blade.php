@@ -15,6 +15,14 @@
       
     </section>
 
+     @if(Session::has('s'))
+      <div class="alert alert-success" style="width:auto;float:right"><span class="glyphicon glyphicon-ok"></span><em> {!! session('s') !!}</em></div>
+ @endif
+
+  @if(Session::has('e'))
+      <div class="alert alert-error" style="width:auto;float:right"><span class="glyphicon glyphicon-ok"></span><em> {!! session('e') !!}</em></div>
+  @endif
+
     <!-- Main content -->
     <section class="content">
     	 <div class="row">

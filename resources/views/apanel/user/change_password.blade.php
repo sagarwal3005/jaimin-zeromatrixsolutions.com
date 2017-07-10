@@ -1,5 +1,5 @@
 @extends('apanel.master')
-@section('title', 'Category')
+@section('title', 'Change Password')
 @section('content')
    
    <link rel="stylesheet" href="{{ asset('admin') }}/dist/css/parsley.css">

@@ -76,7 +76,12 @@ class SocietyController extends Controller
     		$t_array['longitude'] = '';
     	}
     	
-        $o_society->fill($t_array)->save();
+        
+        if($o_society->fill($t_array)->save()){
+            \Session::flash('s','Society Saved Successfully');
+        }else{
+            \Session::flash('e','Society Not Saved');
+        }  
         return redirect('apanel/society/index');
     }
 

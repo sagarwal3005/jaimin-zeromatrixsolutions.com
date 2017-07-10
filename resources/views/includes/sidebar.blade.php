@@ -50,6 +50,14 @@
 
 									<ul class="sub-menu" role="menu">
 										<li>
+											<a href="{{ route('editProfile') }}">
+												Edit Profile
+											</a>
+
+											
+										</li>
+
+										<li>
 											<a href="{{ route('logout') }}"
 												onclick="event.preventDefault();
 														 document.getElementById('logout-form').submit();">
@@ -98,6 +106,14 @@
 									</a>
 
 									<ul class="sub-menu" role="menu">
+
+									<li>
+											<a href="{{ route('editProfile') }}">
+												Edit Profile
+											</a>
+
+											
+										</li>
 										<li>
 											<a href="{{ route('logout') }}"
 												onclick="event.preventDefault();
@@ -440,7 +456,6 @@
 					$(".loading").hide();
 					$(".error").html();
 					for(datos in data.responseJSON){
-						alert(datos);
 						$(".error_reg_"+datos).html(data.responseJSON[datos]);
 						//errors += data.responseJSON[datos] + '<br>';
 					}

@@ -34,8 +34,11 @@
 				<span><img src={{asset('images/socialsoc_icon_white.png')}} alt="Logo" style="width:80px"></span> 
 				
 			</div><!-- /.site-title -->
+
+
 			
 			</div><!-- /.site-branding -->
+
 			<div class="site-navigation">
 			<div class="menu-primary-container">
 				<ul id="menu-primary" class="menu">
@@ -49,6 +52,14 @@
 									</a>
 
 									<ul class="sub-menu" role="menu">
+
+									<li>
+											<a href="{{ route('editProfile') }}">
+												Edit Profile
+											</a>
+
+											
+										</li>
 										<li>
 											<a href="{{ route('logout') }}"
 												onclick="event.preventDefault();
@@ -84,6 +95,12 @@
 							</a>
 						</div><!-- /.header-logo -->
 
+						@if(isset(Auth::user()->id) && !empty(Auth::user()->id))
+							<ul class="custom_menu">
+								<li ><a href="{{ route('profile') }}"> Profile </a></li>
+							</ul>
+						@endif
+
 						<div class="header-toggle sidenav-trigger">
 						</div><!-- /.header-toggle -->
 					
@@ -98,6 +115,14 @@
 									</a>
 
 									<ul class="sub-menu" role="menu">
+
+									<li>
+											<a href="{{ route('editProfile') }}">
+												Edit Profile
+											</a>
+
+											
+										</li>
 										<li>
 											<a href="{{ route('logout') }}"
 												onclick="event.preventDefault();
@@ -440,7 +465,6 @@
 					$(".loading").hide();
 					$(".error").html();
 					for(datos in data.responseJSON){
-						alert(datos);
 						$(".error_reg_"+datos).html(data.responseJSON[datos]);
 						//errors += data.responseJSON[datos] + '<br>';
 					}

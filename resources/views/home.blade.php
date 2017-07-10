@@ -64,11 +64,11 @@
 						<li>
 							<label class="fs-field-label fs-anim-upper" for="q3" data-info="This will help us know what kind of service you need">What all can you offer to your neighbors</label>
 							<div class="fs-radio-group fs-radio-custom clearfix fs-anim-lower">
-								<span><input id="q3c" name="q3" type="checkbox" value="social"/><label for="q3c" class="radio-social"><span><img src="education.png" alt=""></span>Rent Book/Games</label></span>
-								<span><input id="q3c" name="q3" type="checkbox" value="social"/><label for="q3c" class="radio-social"><span><img src="food.png" alt=""></span>Food</label></span>
-								<span><input id="q3c" name="q3" type="checkbox" value="social"/><label for="q3c" class="radio-social"><span><img src="medical.png" alt=""></span>Medical Assistance</label></span>
-								<span><input id="q3c" name="q3" type="checkbox" value="social"/><label for="q3c" class="radio-social"><span><img src="food.png" alt=""></span>Blood </label></span>
-								<span><input id="q3c" name="q3" type="checkbox" value="social"/><label for="q3c" class="radio-social"><span><img src="fitness.png" alt=""></span>Child Care</label></span>
+								@if(!empty($t_neighbours))
+									@foreach($t_neighbours as $t_category)
+										<span><input id="nei_{{$t_category['id']}}" name="neighbour_ids[]" type="checkbox" value="{{$t_category['id']}}" {{(!empty($t_category['user_id']) ? "checked" : "")}} style="opacity:1"/><label for="nei_{{$t_category['id']}}" class="radio-social"><span><img src="{{URL::to('/images/category').'/'.$t_category['category_image']}}" alt=""></span>{{$t_category['title']}}</label></span>
+									@endforeach
+								@endif
 								
 								
 							</div>
@@ -76,7 +76,7 @@
 						
 						
 					</ol><!-- /fs-fields -->
-					<button class="fs-submit" type="submit">Send answers</button>
+					<button class="fs-submit" type="submit">Save Profile</button>
 				</form><!-- /fs-form -->
 			</div>
 		

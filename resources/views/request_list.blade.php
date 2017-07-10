@@ -1,16 +1,3 @@
-<!-- <div class="all_users">
-
-	@if(isset($t_near_society_members) && !empty($t_near_society_members))
-		@foreach($t_near_society_members as $t_near_society_member)
-		<div class="single_user" id="{{$t_near_society_member['id']}}">
-			<div>{{ $t_near_society_member['name'] }}</div>
-			<div><input type="button" value="View Profile" class="view_profile">  </div>
-		</div>
-		@endforeach
-	@endif
-
-</div>
- -->
 
 @extends('layouts.authuser')
 
@@ -40,8 +27,8 @@
 									<p>{{ $t_user_request['user_description'] }}</p>
 								</div>
 								<div class="button-content">
-									<button class="view-profile-btn accept_request">Accept Request</button>
-									<button style="margin-top:10px" class="view-profile-btn reject_request">Reject Request</button>
+									<button class="view-profile-btn accept_request">Accept</button>
+									<button style="margin-top:10px" class="view-profile-btn reject_request">Reject</button>
 								</div>
 							</div>
 						</li>
@@ -81,7 +68,7 @@
 	          success:function(res){
 	              if(res.status==1){   
 	              	  $(self).closest('.single_user').remove();                   
-	                  alert('Request Accepted');
+	                  //alert('Request Accepted');
 	              }else if(res.status==0){                      
 	                  alert('Request not accepted');
 	              }
@@ -98,13 +85,13 @@
 		 $.ajax({
 	          url:'/actionRequest',
 	          type:'post',
-	          data:{status:2,id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
+	          data:{status:2,receiver_user_id:$(self).closest('.single_user').attr('receiver_user_id'),id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
 	          dataType:'JSON',
 	          async:false,
 	          success:function(res){
 	              if(res.status==1){  
 	              	  $(self).closest('.single_user').remove();                       
-	                  alert('Request Rejected');
+	                  //alert('Request Rejected');
 	              }else if(res.status==0){                      
 	                  alert('Request not Rejected');
 	              }

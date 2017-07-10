@@ -17,6 +17,7 @@ class User_request extends Model
             ->where('u.is_active','=',1)
             ->where('user_requests.status','=',0)
             ->where('u.id','<>',$i_user_id)
+            ->orderBy('user_requests.id','desc')
             ->get()->toArray();
     }
 }

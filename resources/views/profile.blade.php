@@ -45,7 +45,17 @@
 									<p>{{ $t_near_society_member['user_description'] }}</p>
 								</div>
 								<div class="button-content">
-									<button class="view-profile-btn view_profile">View Profile</button>
+									@if(isset($t_near_society_member['user_request_id']) && !empty($t_near_society_member['user_request_id']))
+										@if($t_near_society_member['request_status']==1)
+											<button class="view-profile-btn view_profile_btn view_profile" >View Profile</button>
+										@elseif($t_near_society_member['request_status']==2 || $t_near_society_member['request_status']==0)
+											<button class="view-profile-btn request_sent_btn" >Request Sent</button>
+										@endif
+
+									@else
+										<button class="view-profile-btn view_profile">Request View Profile</button>
+									@endif
+									
 								</div>
 							</div>
 						</li>
@@ -79,9 +89,14 @@
 
 					@if(isset($t_notifications) && !empty($t_notifications))
 						@foreach($t_notifications as $t_notification)						
-						<li>
+						<li> 
 						  <p>{{$t_notification['notification']}}</p>
 						  <span class="grey-text">{{ date('d-m-Y H:i:s',strtotime($t_notification['created_at'])) }}</span>
+						  @if($t_notification['request_status']==0)
+						  <span  class="single_user" id="{{$t_notification['user_request_id']}}" receiver_user_id="{{$t_notification['user_id']}}">
+						  		<button class="view-profile-btn accept_request">Accept</button>
+								<button style="margin-top:10px" class="view-profile-btn reject_request">Reject</button></span>
+						  @endif
 						</li>
 						@endforeach
 					@else
@@ -117,7 +132,6 @@
 	
 	 
   $(document).on('click','.view_profile',function(){
-
   	
   		var self = this;
         $.ajax({
@@ -134,9 +148,7 @@
                   }else  if(res.status==2){                      
                       alert('Your request for view profile has rejected by user ');
                   }else  if(res.status==3){                      
-                      if(confirm('Are You sure to Want to send request for view Profile')){
-                      		sendRequest(self);
-                      }
+                      sendRequest(self);
                   }
               },
               error:function(){
@@ -155,8 +167,11 @@
           success:function(res){
               if(res.status==0){                      
                   alert('Please Try Again ');
-              }else if(res.status==1){                      
-                  alert('Request send successfully');
+              }else if(res.status==1){ 
+                   $(self).addClass('request_sent_btn');
+                   $(self).text('Request Sent');
+                   $(self).removeClass('view_profile');
+                  //alert('Request send successfully');
               }
           },
           error:function(){
@@ -185,7 +200,7 @@
 	              }else if(res.status==1){  
 	              	var image = "{{asset('images/profile')}}";
 	              	$('#display_image').attr('src',image+'/'+res.image_path);
-	                  alert('Profile Image Upload successfully');
+	                  //alert('Profile Image Upload successfully');
 	              }
 	          },
 	          error:function(){
@@ -193,6 +208,52 @@
 	          }
 	      })   
 
+  });
+
+
+  $(document).on('click','.accept_request',function(){
+  	var self = this;
+		 $.ajax({
+	          url:'/actionRequest',
+	          type:'post',
+	          data:{status:1,receiver_user_id:$(self).closest('.single_user').attr('receiver_user_id'),id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
+	          dataType:'JSON',
+	          async:false,
+	          success:function(res){
+	              if(res.status==1){   
+	              	  $(self).closest('.single_user').remove();                   
+	                  //alert('Request Accepted');
+	              }else if(res.status==0){                      
+	                  alert('Request not accepted');
+	              }
+	          },
+	          error:function(){
+	               alert('Something Went Wrong');
+	          }
+	      })   
+  });
+
+
+  $(document).on('click','.reject_request',function(){
+  	var self = this;
+		 $.ajax({
+	          url:'/actionRequest',
+	          type:'post',
+	          data:{status:2,receiver_user_id:$(self).closest('.single_user').attr('receiver_user_id'),id:$(self).closest('.single_user').attr('id'),_token: "{{ csrf_token() }}"},
+	          dataType:'JSON',
+	          async:false,
+	          success:function(res){
+	              if(res.status==1){  
+	              	  $(self).closest('.single_user').remove();                       
+	                  //alert('Request Rejected');
+	              }else if(res.status==0){                      
+	                  alert('Request not Rejected');
+	              }
+	          },
+	          error:function(){
+	               alert('Something Went Wrong');
+	          }
+	      })   
   });
 </script>
 

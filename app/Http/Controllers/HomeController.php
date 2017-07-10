@@ -8,6 +8,7 @@ use SocialSoc\models\Category;
 use SocialSoc\models\Society;
 use SocialSoc\User;
 use SocialSoc\models\User_category;
+use SocialSoc\models\User_neighbour;
 use SocialSoc\models\User_request;
 use SocialSoc\models\User_notification;
 
@@ -29,14 +30,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index() {        
+        $t_user = Auth::User()->toArray();
+        if(!empty($t_user['society_id'])){
+            return redirect('dashboard');  
+        }else{
+            return redirect('editProfile');  
+        }
         
+    }
+    public function editProfile(){
         $t_user = Auth::User()->toArray();
         $o_category = new Category;
         $t_categories = $o_category -> getUserCategories(Auth::User()->id);
+        $t_neighbours = $o_category -> getUserNeighbours(Auth::User()->id);
         $t_societies = Society::all()->toArray();
-        return view('home',compact(['t_categories'],['t_societies'],['t_user']));
+        return view('home',compact(['t_categories'],['t_societies'],['t_user'],['t_neighbours']));
     }
+
+     public function dashboard() {
+        return view('dashboard');
+     }
 
     function saveUserDetails(Request $o_request){
         
@@ -44,9 +58,9 @@ class HomeController extends Controller
         $o_user = User::find($i_user_id);
         $o_user->user_description = $o_request->user_description;
         $o_user->society_id = $o_request->society_id;
-        $o_user->save();      
-        
+        $o_user->save();              
         User_category::where('user_id', $i_user_id)->delete();
+        User_Neighbour::where('user_id', $i_user_id)->delete();
         if(isset($o_request->category_ids) && !empty($o_request->category_ids)){
             foreach ($o_request->category_ids as $key => $t_category) {
                 $o_user_category = New User_category;
@@ -54,6 +68,16 @@ class HomeController extends Controller
                 $o_user_category->ip_address= $_SERVER['REMOTE_ADDR'];
                 $o_user_category->category_id = $t_category;
                 $o_user_category->save();
+            }           
+        }
+
+        if(isset($o_request->neighbour_ids) && !empty($o_request->neighbour_ids)){
+            foreach ($o_request->neighbour_ids as $key => $t_category) {
+                $o_user_neighbour = New User_Neighbour;
+                $o_user_neighbour->user_id = $i_user_id;
+                $o_user_neighbour->ip_address= $_SERVER['REMOTE_ADDR'];
+                $o_user_neighbour->category_id = $t_category;
+                $o_user_neighbour->save();
             }           
         }
         return redirect('profile');       
@@ -68,7 +92,12 @@ class HomeController extends Controller
             $i_society_id = $t_user['society_id'];
             $o_user = New User;
             $t_near_society_members = $o_user->getSocietyUsers($i_society_id);
-            $t_notifications = User_notification::where([['receiver_user_id','=',$i_user_id]])->orderBy('id','desc')->get()->toArray();
+            // echo '<pre>';
+            // print_r($t_near_society_members);exit;
+            $o_user_notification = New User_notification;
+            $t_notifications = $o_user_notification-> getUserNotifications($i_user_id);
+            //echo '<pre>';print_r( $t_notifications);exit;
+            //$t_notifications = User_notification::where([['receiver_user_id','=',$i_user_id]])->orderBy('id','desc')->get()->toArray();
         }
         return view('profile',compact(['t_near_society_members'],['t_user'],['t_notifications']));
 
@@ -77,15 +106,12 @@ class HomeController extends Controller
     function checkRequest(Request $o_request){
         $i_user_id = Auth::User()->id;
         $i_receiver_user_id = $o_request->receiver_user_id;
-
         $t_user_request = User_request::where([['user_id','=',$i_user_id],['receiver_user_id','=',$i_receiver_user_id]])->get()->toArray();
-
         if(!empty($t_user_request )){
             return json_encode(array('status'=>$t_user_request[0]['status'])); // view profile
         }else{
             return json_encode(array('status'=>3)); // send request
         }
-
     }
 
     function sendRequest(Request $o_request){
@@ -96,10 +122,10 @@ class HomeController extends Controller
             $o_user_request->ip_address = $_SERVER['REMOTE_ADDR'];
             //$o_user_request->status = 0;
             if($o_user_request->save()){
-                $s_notification = Auth::User()->name .' has sent you Request';
-                $i_receiver_user_id=$o_request->receiver_user_id;
+                $i_user_request_id = $o_user_request->id;
+                $s_notification = ucwords(strtolower(Auth::User()->name)) .' has sent you request for view Profile';
                 $i_user_id = Auth::User()->id;
-                $this -> saveNotifications($i_receiver_user_id,$s_notification,$i_user_id);
+                $this -> saveNotifications($i_user_request_id,$i_user_id,$o_request->receiver_user_id,$s_notification);
                 
                  return json_encode(array('status'=>1)); // send request
             }          
@@ -109,8 +135,9 @@ class HomeController extends Controller
 
     }
 
-    private function saveNotifications($i_receiver_user_id,$s_notification,$i_user_id){
+    private function saveNotifications($i_user_requests_id,$i_user_id,$i_receiver_user_id,$s_notification){
          $o_user_notification = new User_notification;
+         $o_user_notification->user_request_id=$i_user_requests_id;
          $o_user_notification->user_id=$i_user_id;
          $o_user_notification->receiver_user_id=$i_receiver_user_id;
          $o_user_notification->ip_address= $_SERVER['REMOTE_ADDR'];
@@ -134,13 +161,13 @@ class HomeController extends Controller
             $o_user_request->status = $o_request->status;
             if($o_user_request->save()){
                 if($o_request->status==1){
-                    $s_notification = Auth::User()->name .' has accepted your Request';
+                    $s_notification = ucwords(strtolower(Auth::User()->name)) .' has accepted your request for view Profile';
                 }else if($o_request->status==2){
-                    $s_notification = Auth::User()->name .' has rejected your Request';
+                    $s_notification = ucwords(strtolower(Auth::User()->name)) .' has rejected your request for view Profile';
                 }
                 $i_user_id = Auth::User()->id;
                 $i_receiver_user_id=$o_request->receiver_user_id;
-                $this -> saveNotifications($i_receiver_user_id,$s_notification,$i_user_id);
+                $this -> saveNotifications($o_request->id,$i_user_id,$i_receiver_user_id,$s_notification);
 
                 return json_encode(array('status'=>1)); 
             } 

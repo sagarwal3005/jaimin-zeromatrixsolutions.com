@@ -18,10 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/editProfile', 'HomeController@editProfile')->name('editProfile');
 Route::post('/saveUserDetails', 'HomeController@saveUserDetails')->name('saveUserDetails');
 Route::get('/profile', 'HomeController@profile')->name('profile');
 Route::post('/checkRequest', 'HomeController@checkRequest')->name('checkRequest');
